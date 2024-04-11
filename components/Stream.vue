@@ -2,16 +2,14 @@
 	<v-app-bar density="compact" color="#146E4E">
 		<img src="~/public/favicon.ico" style="height: 32px; width: 32px" class="ml-4" />
 		<v-app-bar-title>
-			<h6 class="text-h6 font-weight-regular mb-0 pb-0" style="margin-top: 6px">The 88th Masters Tournament</h6>
+			<h6 class="text-h6 mb-0 pb-0" style="margin-top: 6px">The 88th Masters Tournament</h6>
 			<p class="text-overline mt-n3 pt-n0">APRIL 11-14, 2024</p>
 		</v-app-bar-title>
-		<!-- <v-spacer></v-spacer>
-    <v-btn size="small" prepend-icon="mdi-chevron-left">Logout</v-btn> -->
 	</v-app-bar>
 
 	<main>
-		<v-row no-gutters>
-			<v-col cols="12" md="9" style="position: relative">
+		<section class="viewport">
+			<div style="position: relative; flex-grow: 1">
 				<ClientOnly>
 					<video id="video" class="video-js vjs-fluid vjs-default-skin" controls preload="auto" data-setup="{}">
 						<source v-if="activeFeed" :src="activeFeed" type="application/x-mpegURL" />
@@ -58,33 +56,33 @@
 
 					<v-btn class="ml-2" icon="mdi-fullscreen" variant="text" @click="fullscreen()" :disabled="!activeFeed || loading"></v-btn>
 				</div>
-			</v-col>
+			</div>
 
-			<v-col cols="12" md="3" v-if="feeds">
+			<div v-if="feeds" style="width: 300px">
 				<v-list class="bg-transparent mt-3 mx-6" density="compact">
 					<v-list-subheader class="mb-2">CHANNELS</v-list-subheader>
 
 					<v-item-group mandatory v-model="activeFeed" @update:model-value="set()">
 						<v-item
-							v-for="(feed, index) in feeds.sort((a: any, b: any) =>
+							v-for="feed in feeds.sort((a: any, b: any) =>
                 a.name.localeCompare(b.name)
               ).filter((i: any) => i.channelId != 'fg2')"
 							:key="feed.channelId"
-							v-slot="{ isSelected, selectedClass, toggle }"
+							v-slot="{ isSelected, toggle }"
 							:value="feed.desktop[1].url"
 						>
-							<v-list-item @click="toggle" :active="isSelected" rounded="lg" :prepend-avatar="feed.carousel_thumb">
-								<v-list-item-title
-									>{{ feed.name
-									}}<v-chip :color="feed.live ? 'red' : 'grey'" class="ml-2" style="margin-top: -2px; cursor: pointer" density="compact">
-										{{ feed.live ? "LIVE" : "OFFLINE" }}
-									</v-chip></v-list-item-title
-								>
+							<v-list-item
+								@click="toggle"
+								:active="isSelected"
+								rounded="lg"
+								:prepend-avatar="feed.carousel_thumb"
+								:title="feed.name"
+								:disabled="!feed.live"
+							>
 							</v-list-item>
 						</v-item>
 					</v-item-group>
-					<!-- 
-          <div v-if="activeFeed">
+					<!-- <div v-if="activeFeed">
             <v-list-subheader class="mb-2 mt-6">ON NOW</v-list-subheader>
 
             <v-list-item
@@ -101,23 +99,23 @@
             </v-list-item>
           </div> -->
 				</v-list>
-			</v-col>
-		</v-row>
+			</div>
+		</section>
 
 		<v-container v-if="scores" class="mt-2">
 			<v-table density="compact" class="rounded-lg mb-2" fixed-header>
 				<thead>
 					<tr>
-						<th class="text-center"></th>
+						<th class="text-center" style="width: 60px"></th>
 						<th class="text-left"></th>
-						<th class="text-center" style="white-space: nowrap">To Par</th>
-						<th class="text-center">Thru</th>
-						<th class="text-center">Today</th>
-						<th class="text-center">R1</th>
-						<th class="text-center">R2</th>
-						<th class="text-center">R3</th>
-						<th class="text-center">R4</th>
-						<th class="text-center">Total</th>
+						<th class="text-center" style="white-space: nowrap; width: 60px">To Par</th>
+						<th class="text-center" style="width: 60px">Thru</th>
+						<th class="text-center" style="width: 60px">Today</th>
+						<th class="text-center" style="width: 60px">R1</th>
+						<th class="text-center" style="width: 60px">R2</th>
+						<th class="text-center" style="width: 60px">R3</th>
+						<th class="text-center" style="width: 60px">R4</th>
+						<th class="text-center" style="width: 60px">Total</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -133,6 +131,7 @@
 									<span class="font-weight-bold">{{ player?.last_name }}</span
 									><span v-if="mdAndUp">, {{ player?.first_name }}</span>
 									<span v-if="player?.amateur"> (A)</span>
+									<span v-else-if="player?.firsttimer"> (F)</span>
 								</v-list-item-title>
 							</v-list-item>
 						</td>
@@ -163,9 +162,10 @@
 						</td>
 						<td
 							:class="{
-								'text-red': player.round1.total < par,
-								'text-green': player.round1.total >= par,
-								'text-grey-lighten-5': player.round1.total == null,
+								'text-red': player.round1.underPar,
+								'text-green': !player.round1.underPar,
+								'text-grey-lighten-5': !player.round1.total,
+								'font-italic': player.round1.roundStatus != 'Finished',
 							}"
 							class="text-center"
 						>
@@ -173,9 +173,10 @@
 						</td>
 						<td
 							:class="{
-								'text-red': player.round2.total < par,
-								'text-green': player.round2.total >= par,
-								'text-grey-lighten-5': player.round2.total == null,
+								'text-red': player.round2.underPar,
+								'text-green': !player.round2.underPar,
+								'text-grey-lighten-5': !player.round2.total,
+								'font-italic': player.round2.roundStatus != 'Finished',
 							}"
 							class="text-center"
 						>
@@ -183,9 +184,10 @@
 						</td>
 						<td
 							:class="{
-								'text-red': player.round3.total < par,
-								'text-green': player.round3.total >= par,
-								'text-grey-lighten-5': player.round3.total == null,
+								'text-red': player.round3.underPar,
+								'text-green': !player.round3.underPar,
+								'text-grey-lighten-5': !player.round3.total,
+								'font-italic': player.round3.roundStatus != 'Finished',
 							}"
 							class="text-center"
 						>
@@ -193,9 +195,10 @@
 						</td>
 						<td
 							:class="{
-								'text-red': player.round4.total < par,
-								'text-green': player.round4.total >= par,
-								'text-grey-lighten-5': player.round4.total == null,
+								'text-red': player.round4.underPar,
+								'text-green': !player.round4.underPar,
+								'text-grey-lighten-5': !player.round4.total,
+								'font-italic': player.round4.roundStatus != 'Finished',
 							}"
 							class="text-center"
 						>
@@ -203,9 +206,9 @@
 						</td>
 						<td
 							:class="{
-								'text-red': player.totalUnderPar == 'true',
-								'text-green': player.totalUnderPar == 'false',
-								'text-grey-lighten-5': player.total == null || player.status == 'W',
+								'text-red': player.totalUnderPar,
+								'text-green': !player.totalUnderPar,
+								'text-grey-lighten-5': !player.total || player.status == 'W',
 							}"
 							class="text-center"
 						>
@@ -241,14 +244,16 @@
 										<div class="ma-4 d-flex" style="align-items: baseline">
 											<h4 class="text-h4 font-weight-medium">
 												{{ player?.first_name }} {{ player?.last_name }}
-												<span v-if="player?.amateur"> (A)</span>
+												<span v-if="player?.amateur" class="text-overline ml-1">Amateur</span>
+												<span v-else-if="player?.firsttimer" class="text-overline ml-1">First-Timer</span>
+												<span v-else-if="player?.past" class="text-overline ml-1">Past Winner</span>
 											</h4>
 											<v-spacer></v-spacer>
 											<h6
 												class="text-h6 mr-2 font-weight-regular"
 												:class="{
-													'text-red': player.totalUnderPar == 'true',
-													'text-green': player.totalUnderPar == 'false',
+													'text-red': player.totalUnderPar,
+													'text-green': !player.totalUnderPar,
 												}"
 											>
 												{{ player.total || "-" }}
@@ -269,24 +274,24 @@
 											<thead>
 												<tr>
 													<th class="text-center">Hole</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 0 }">1</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 1 }">2</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 2 }">3</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 3 }">4</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 4 }">5</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 5 }">6</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 6 }">7</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 7 }">8</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 8 }">9</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 9 }">10</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 10 }">11</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 11 }">12</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 12 }">13</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 13 }">14</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 14 }">15</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 15 }">16</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 16 }">17</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 17 }">18</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 0 }" style="width: 45px">1</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 1 }" style="width: 45px">2</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 2 }" style="width: 45px">3</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 3 }" style="width: 45px">4</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 4 }" style="width: 45px">5</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 5 }" style="width: 45px">6</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 6 }" style="width: 45px">7</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 7 }" style="width: 45px">8</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 8 }" style="width: 45px">9</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 9 }" style="width: 45px">10</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 10 }" style="width: 45px">11</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 11 }" style="width: 45px">12</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 12 }" style="width: 45px">13</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 13 }" style="width: 45px">14</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 14 }" style="width: 45px">15</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 15 }" style="width: 45px">16</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 16 }" style="width: 45px">17</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 17 }" style="width: 45px">18</th>
 													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 18 }">Total</th>
 												</tr>
 												<tr>
@@ -413,7 +418,7 @@
 													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 17 }">
 														{{ player[`round${i}`].scores[17] || "-" }}
 													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 18 }">
+													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 18, 'font-italic': !player[`round${i}`].total }">
 														{{ player[`round${i}`].total || "-" }}
 													</td>
 												</tr>
@@ -559,5 +564,11 @@
 	.v-table__wrapper table tbody tr:hover,
 	.highlighted {
 		background: rgba(255, 255, 255, 0.1);
+	}
+
+	@media screen and (min-width: 900px) {
+		.viewport {
+			display: flex;
+		}
 	}
 </style>
