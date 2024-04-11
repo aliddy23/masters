@@ -8,6 +8,9 @@ import { fileURLToPath, URL } from "node:url";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    outDir: "../dist",
+  },
   plugins: [
     vue({
       template: { transformAssetUrls },
@@ -28,13 +31,13 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "http://localhost:3011",
+        target: "http://localhost:3001",
         changeOrigin: true,
       },
-      "/socket.io": {
-        target: "ws://localhost:5174",
-        ws: true,
-      },
+      // "/socket.io": {
+      //   target: "ws://localhost:5174",
+      //   ws: true,
+      // },
     },
   },
 });

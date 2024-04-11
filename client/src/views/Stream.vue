@@ -3,8 +3,8 @@
     <v-app-bar-title>
       <h6 class="text-h6 font-weight-regular">The Masters</h6>
     </v-app-bar-title>
-    <v-spacer></v-spacer>
-    <v-btn size="small" prepend-icon="mdi-chevron-left">Logout</v-btn>
+    <!-- <v-spacer></v-spacer>
+    <v-btn size="small" prepend-icon="mdi-chevron-left">Logout</v-btn> -->
   </v-app-bar>
 
   <main>
@@ -101,7 +101,9 @@
             @update:model-value="set()"
           >
             <v-item
-              v-for="(feed, index) in feeds"
+              v-for="(feed, index) in feeds.sort((a: any, b: any) =>
+                a.name.localeCompare(b.name)
+              ).filter((i: any) => i.channelId != 'fg2')"
               :key="feed.channelId"
               v-slot="{ isSelected, selectedClass, toggle }"
               :value="feed.desktop[1].url"
@@ -148,12 +150,7 @@
     </v-row>
 
     <v-container v-if="scores" class="mt-2">
-      <v-table
-        density="compact"
-        class="rounded-lg mb-2"
-        fixed-header
-        :height="mdAndUp ? 'calc(100vh - 96px)' : 'unset'"
-      >
+      <v-table density="compact" class="rounded-lg mb-2" fixed-header>
         <thead>
           <tr>
             <th class="text-center"></th>
@@ -592,7 +589,13 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="i in 4" :key="i">
+                        <tr
+                          v-for="i in 4"
+                          :key="i"
+                          :class="{
+                            highlighted: currentRound == i,
+                          }"
+                        >
                           <td class="text-center font-weight-bold">R{{ i }}</td>
                           <td
                             class="text-center"
@@ -725,21 +728,29 @@
 <script lang="ts" setup>
 import axios from "axios";
 import { onMounted } from "vue";
-import { ref } from "vue";
+import { ref, computed, Ref } from "vue";
 import videojs from "video.js";
 import { useDisplay } from "vuetify";
 
 const { mdAndUp } = useDisplay();
-let scores = ref({});
-let feeds = ref({});
+let scores: Ref<any> = ref({});
+let feeds: Ref<any> = ref({});
 let activeFeed = ref(null);
-let player = null;
+let player: any = null;
 let loading = ref(false);
 let paused = ref(true);
 let muted = ref(false);
 let totalPar = ref(Number.MAX_SAFE_INTEGER);
 let par = ref(72);
 let isLive = ref(false);
+
+const currentRound = computed(() => {
+  if (scores?.value.currentRound == "1000") return 1;
+  else if (scores?.value.currentRound == "0100") return 2;
+  else if (scores?.value.currentRound == "0010") return 3;
+  else if (scores?.value.currentRound == "0001") return 4;
+  else return 0;
+});
 
 onMounted(() => {
   refreshScoreboard();
@@ -770,8 +781,8 @@ onMounted(() => {
     loading.value = true;
   });
 
-  setInterval(() => refreshScoreboard(), 15000);
-  setInterval(() => refreshFeeds(), 5000);
+  setInterval(() => refreshScoreboard(), 30000);
+  setInterval(() => refreshFeeds(), 60000);
 });
 
 let pause = () => {
@@ -800,7 +811,7 @@ let fullscreen = () => {
   player.requestFullscreen();
 };
 
-let pInt = (input) => {
+let pInt = (input: string) => {
   if (input == "F") return 18;
   return parseInt(input);
 };
@@ -819,7 +830,7 @@ let refreshScoreboard = () => {
       case "0100":
         totalPar.value = par.value * 2;
         break;
-      case "0001":
+      case "0010":
         totalPar.value = par.value * 3;
         break;
       case "0001":
@@ -843,6 +854,8 @@ let refreshFeeds = () => {
   display: none !important;
 }
 
-.circle {
+.v-table__wrapper table tbody tr:hover,
+.highlighted {
+  background: rgba(255, 255, 255, 0.1);
 }
 </style>
