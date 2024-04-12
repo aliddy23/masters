@@ -1,12 +1,4 @@
 <template>
-	<v-app-bar density="compact" color="#146E4E">
-		<img src="~/public/favicon.ico" style="height: 32px; width: 32px" class="ml-4" />
-		<v-app-bar-title>
-			<h6 class="text-h6 mb-0 pb-0 mt-n1">The 88th Masters Tournament</h6>
-			<p class="text-overline mt-n3 mb-n2">April 11-14, 2024</p>
-		</v-app-bar-title>
-	</v-app-bar>
-
 	<main>
 		<section style="position: relative">
 			<ClientOnly>
@@ -117,7 +109,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="(player, index) in scores?.player" :key="player.id" :class="{ cutline: player.topar > parseInt(scores.cutLine) }">
+					<tr
+						v-for="(player, index) in scores?.player"
+						:key="player.id"
+						:class="{ cutline: scores.cutLine ? player.topar > parseInt(scores.cutLine) : false }"
+					>
 						<td v-if="player.status == 'C'" class="font-weight-black text-center">MC</td>
 						<td v-else-if="player.status == 'W'" class="font-weight-black text-center">WD</td>
 						<td v-else class="font-weight-black text-center">
@@ -251,7 +247,7 @@
 											</h4>
 											<v-spacer></v-spacer>
 											<h6
-												class="text-h6 mr-2 font-weight-regular"
+												class="text-h6 mr-3 font-weight-light"
 												:class="{
 													'text-red': player.totalUnderPar,
 													'text-green': !player.totalUnderPar,
@@ -483,23 +479,23 @@
 
 	.eagle {
 		border-radius: 32px;
-		border: 4px #909090 double;
+		border: 4px rgba(255, 255, 255, 0.35) double;
 		line-height: 25px;
 	}
 
 	.birdie {
 		border-radius: 32px;
-		border: 2px #909090 solid;
+		border: 2px rgba(255, 255, 255, 0.35) solid;
 		line-height: 31px;
 	}
 
 	.bogey {
-		border: 2px #909090 solid;
+		border: 2px rgba(255, 255, 255, 0.35) solid;
 		line-height: 31px;
 	}
 
 	.dblbogey {
-		border: 4px #909090 double;
+		border: 4px rgba(255, 255, 255, 0.35) double;
 		line-height: 26px;
 	}
 
