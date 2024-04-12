@@ -60,7 +60,7 @@
 					v-for="feed in [feeds.filter((i:any) => i.channelId != 'fg2').find((i: any) => i.desktop[0].url == activeFeed)]"
 				>
 					<h6 class="text-h6 mb-0 pb-0 mt-n1">{{ feed.name }}</h6>
-					<p class="text-overline mt-n3 mb-n2">{{ feed.carousel_header }}</p>
+					<p class="text-overline mt-n3 mb-n2">Round {{ currentRound }}</p>
 				</div>
 
 				<v-spacer></v-spacer>
