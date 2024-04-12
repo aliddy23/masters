@@ -1,11 +1,11 @@
 module.exports = {
 	apps: [
 		{
-			name: "Lookout",
-			port: "3000",
+			name: "masters",
+			port: "3001",
 			exec_mode: "cluster",
 			instances: "max",
-			script: "./build/server/index.mjs",
+			script: "./.output/server/index.mjs",
 			watch: false,
 		},
 	],
