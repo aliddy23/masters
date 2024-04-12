@@ -117,7 +117,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="(player, index) in scores?.player" :key="player.id">
+					<tr v-for="(player, index) in scores?.player" :key="player.id" :class="{ cutline: player.topar > parseInt(scores.cutLine) }">
 						<td v-if="player.status == 'C'" class="font-weight-black text-center">MC</td>
 						<td v-else-if="player.status == 'W'" class="font-weight-black text-center">WD</td>
 						<td v-else class="font-weight-black text-center">
@@ -501,5 +501,9 @@
 	.dblbogey {
 		border: 4px #909090 double;
 		line-height: 26px;
+	}
+
+	.cutline {
+		background: rgba(244, 67, 54, 0.075);
 	}
 </style>
