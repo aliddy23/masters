@@ -103,17 +103,17 @@
 			<v-table density="compact" class="rounded-lg mb-2" fixed-header>
 				<thead>
 					<tr>
-						<th class="text-center" style="width: 60px"></th>
-						<th class="text-left"></th>
-						<th class="text-center" style="white-space: nowrap; width: 60px">To Par</th>
-						<th class="text-center" style="width: 60px">Thru</th>
-						<th class="text-center" style="width: 60px">Today</th>
-						<th class="text-center" style="width: 60px">R1</th>
-						<th class="text-center" style="width: 60px">R2</th>
-						<th class="text-center" style="width: 60px">R3</th>
-						<th class="text-center" style="width: 60px">R4</th>
-						<th class="text-center" style="width: 60px">Par</th>
-						<th class="text-center" style="width: 60px">Total</th>
+						<th class="text-center" style="width: 60px; background: #282828"></th>
+						<th class="text-left" style="background: #282828"></th>
+						<th class="text-center" style="white-space: nowrap; width: 60px; background: #282828">To Par</th>
+						<th class="text-center" style="width: 60px; background: #282828">Thru</th>
+						<th class="text-center" style="width: 60px; background: #282828">Today</th>
+						<th class="text-center" style="width: 60px; background: #282828">R1</th>
+						<th class="text-center" style="width: 60px; background: #282828">R2</th>
+						<th class="text-center" style="width: 60px; background: #282828">R3</th>
+						<th class="text-center" style="width: 60px; background: #282828">R4</th>
+						<th class="text-center" style="width: 60px; background: #282828">Par</th>
+						<th class="text-center" style="width: 60px; background: #282828">Total</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -272,91 +272,25 @@
 										</div>
 
 										<v-table density="compact" class="bg-transparent">
-											<thead>
+											<thead style="background: #232323">
 												<tr style="white-space: nowrap">
 													<th class="text-center">Hole</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 0 }" style="max-width: 45px">1</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 1 }" style="max-width: 45px">2</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 2 }" style="max-width: 45px">3</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 3 }" style="max-width: 45px">4</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 4 }" style="max-width: 45px">5</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 5 }" style="max-width: 45px">6</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 6 }" style="max-width: 45px">7</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 7 }" style="max-width: 45px">8</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 8 }" style="max-width: 45px">9</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 9 }" style="max-width: 45px">10</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 10 }" style="max-width: 45px">11</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 11 }" style="max-width: 45px">12</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 12 }" style="max-width: 45px">13</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 13 }" style="max-width: 45px">14</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 14 }" style="max-width: 45px">15</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 15 }" style="max-width: 45px">16</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 16 }" style="max-width: 45px">17</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 17 }" style="max-width: 45px">18</th>
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == hole - 1 }" style="max-width: 45px" v-for="hole in 18">
+														{{ hole }}
+													</th>
 													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 18 }">Total</th>
 												</tr>
 												<tr>
 													<th class="text-center">Par</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 0 }">
-														{{ scores?.pars?.round1[0] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 1 }">
-														{{ scores?.pars?.round1[1] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 2 }">
-														{{ scores?.pars?.round1[2] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 3 }">
-														{{ scores?.pars?.round1[3] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 4 }">
-														{{ scores?.pars?.round1[4] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 5 }">
-														{{ scores?.pars?.round1[5] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 6 }">
-														{{ scores?.pars?.round1[6] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 7 }">
-														{{ scores?.pars?.round1[7] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 8 }">
-														{{ scores?.pars?.round1[8] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 9 }">
-														{{ scores?.pars?.round1[9] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 10 }">
-														{{ scores?.pars?.round1[10] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 11 }">
-														{{ scores?.pars?.round1[11] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 12 }">
-														{{ scores?.pars?.round1[12] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 13 }">
-														{{ scores?.pars?.round1[13] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 14 }">
-														{{ scores?.pars?.round1[14] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 15 }">
-														{{ scores?.pars?.round1[15] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 16 }">
-														{{ scores?.pars?.round1[16] }}
-													</th>
-													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 17 }">
-														{{ scores?.pars?.round1[17] }}
+													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == hole - 1 }" v-for="hole in 18">
+														{{ scores?.pars?.round1[hole - 1] }}
 													</th>
 													<th class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 18 }">
 														{{ par }}
 													</th>
 												</tr>
 											</thead>
-											<tbody>
+											<tbody v-if="scores.pars">
 												<tr
 													v-for="i in 4"
 													:key="i"
@@ -365,59 +299,18 @@
 													}"
 												>
 													<td class="text-center font-weight-bold">R{{ i }}</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 0 }">
-														{{ player[`round${i}`].scores[0] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 1 }">
-														{{ player[`round${i}`].scores[1] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 2 }">
-														{{ player[`round${i}`].scores[2] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 3 }">
-														{{ player[`round${i}`].scores[3] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 4 }">
-														{{ player[`round${i}`].scores[4] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 5 }">
-														{{ player[`round${i}`].scores[5] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 6 }">
-														{{ player[`round${i}`].scores[6] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 7 }">
-														{{ player[`round${i}`].scores[7] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 8 }">
-														{{ player[`round${i}`].scores[8] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 9 }">
-														{{ player[`round${i}`].scores[9] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 10 }">
-														{{ player[`round${i}`].scores[10] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 11 }">
-														{{ player[`round${i}`].scores[11] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 12 }">
-														{{ player[`round${i}`].scores[12] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 13 }">
-														{{ player[`round${i}`].scores[13] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 14 }">
-														{{ player[`round${i}`].scores[14] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 15 }">
-														{{ player[`round${i}`].scores[15] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 16 }">
-														{{ player[`round${i}`].scores[16] || "-" }}
-													</td>
-													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 17 }">
-														{{ player[`round${i}`].scores[17] || "-" }}
+													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == hole - 1 }" v-for="hole in 18">
+														<div
+															class="score"
+															:class="{
+																eagle: player[`round${i}`].scores[hole - 1] == scores.pars[`round${currentRound}`][hole - 1] - 2,
+																birdie: player[`round${i}`].scores[hole - 1] == scores.pars[`round${currentRound}`][hole - 1] - 1,
+																bogey: player[`round${i}`].scores[hole - 1] == scores.pars[`round${currentRound}`][hole - 1] + 1,
+																dblbogey: player[`round${i}`].scores[hole - 1] == scores.pars[`round${currentRound}`][hole - 1] + 2,
+															}"
+														>
+															{{ player[`round${i}`].scores[hole - 1] || "-" }}
+														</div>
 													</td>
 													<td class="text-center" :class="{ 'bg-primary': pInt(player.thru) == 18, 'font-italic': !player[`round${i}`].total }">
 														{{ player[`round${i}`].total || "-" }}
@@ -578,5 +471,35 @@
 		.viewport {
 			display: flex;
 		}
+	}
+
+	.score {
+		width: 32px !important;
+		height: 32px !important;
+		text-align: center;
+		margin: 0px -9px 0px -9px;
+		line-height: 34px;
+	}
+
+	.eagle {
+		border-radius: 32px;
+		border: 4px #909090 double;
+		line-height: 25px;
+	}
+
+	.birdie {
+		border-radius: 32px;
+		border: 2px #909090 solid;
+		line-height: 31px;
+	}
+
+	.bogey {
+		border: 2px #909090 solid;
+		line-height: 31px;
+	}
+
+	.dblbogey {
+		border: 4px #909090 double;
+		line-height: 26px;
 	}
 </style>
