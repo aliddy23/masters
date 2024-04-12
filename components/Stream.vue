@@ -55,9 +55,9 @@
 				>
 
 				<div
-					class="ml-6"
+					class="ml-6 hidden-xs"
 					v-if="activeFeed"
-					v-for="feed in [feeds.filter((i:any) => i.channelId != 'fg2').find((i: any) => i.desktop[1].url == activeFeed)]"
+					v-for="feed in [feeds.filter((i:any) => i.channelId != 'fg2').find((i: any) => i.desktop[0].url == activeFeed)]"
 				>
 					<h6 class="text-h6 mb-0 pb-0 mt-n1">{{ feed.name }}</h6>
 					<p class="text-overline mt-n3 mb-n2">{{ feed.carousel_header }}</p>
@@ -78,7 +78,7 @@
 								).filter((i: any) => i.channelId != 'fg2')"
 									:key="feed.channelId"
 									v-slot="{ isSelected, toggle }"
-									:value="feed.desktop[1].url"
+									:value="feed.desktop[0].url"
 								>
 									<v-list-item
 										@click="toggle"

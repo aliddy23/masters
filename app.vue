@@ -17,6 +17,14 @@
 				href: "https://unpkg.com/video.js@8.0.4/dist/video-js.min.css",
 				rel: "stylesheet",
 			},
+			{
+				rel: "preconnect",
+				href: "https://fonts.googleapis.com",
+			},
+			{
+				rel: "stylesheet",
+				href: "https://fonts.googleapis.com/css?family=Inter:300,400,500,700&display=swap",
+			},
 		],
 	});
 </script>
