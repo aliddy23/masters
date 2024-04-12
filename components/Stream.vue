@@ -112,6 +112,7 @@
 						<th class="text-center" style="width: 60px">R2</th>
 						<th class="text-center" style="width: 60px">R3</th>
 						<th class="text-center" style="width: 60px">R4</th>
+						<th class="text-center" style="width: 60px">Par</th>
 						<th class="text-center" style="width: 60px">Total</th>
 					</tr>
 				</thead>
@@ -200,6 +201,9 @@
 							class="text-center"
 						>
 							{{ player.round4.total || "-" }}
+						</td>
+						<td class="text-center">
+							{{ player.totalPar || "-" }}
 						</td>
 						<td
 							:class="{

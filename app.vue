@@ -12,6 +12,71 @@
 		htmlAttrs: {
 			lang: "en",
 		},
+		meta: [
+			{
+				name: "viewport",
+				content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
+			},
+			{
+				name: "theme-color",
+				content: "#146E4E",
+			},
+			{
+				name: "apple-mobile-web-app-capable",
+				content: "yes",
+			},
+			{
+				name: "apple-mobile-web-app-status-bar-style",
+				content: "black",
+			},
+			{
+				name: "apple-mobile-web-app-title",
+				content: "The Masters",
+			},
+			{
+				name: "mobile-web-app-capable",
+				content: "yes",
+			},
+			{
+				name: "application-name",
+				content: "The Masters",
+			},
+			{
+				name: "full-screen",
+				content: "yes",
+			},
+			{
+				name: "browsermode",
+				content: "application",
+			},
+			{
+				name: "nightmode",
+				content: "enable/disable",
+			},
+			{
+				name: "layoutmode",
+				content: "fitscreen/standard",
+			},
+			{
+				name: "imagemode",
+				content: "force",
+			},
+			{
+				name: "x5-fullscreen",
+				content: "true",
+			},
+			{
+				name: "x5-page-mode",
+				content: "app",
+			},
+			{
+				name: "browsermode",
+				content: "application",
+			},
+			{
+				name: "x5-page-mode",
+			},
+		],
 		link: [
 			{
 				href: "https://unpkg.com/video.js@8.0.4/dist/video-js.min.css",
@@ -23,7 +88,7 @@
 			},
 			{
 				rel: "stylesheet",
-				href: "https://fonts.googleapis.com/css?family=Inter:300,400,500,700&display=swap",
+				href: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap",
 			},
 		],
 	});

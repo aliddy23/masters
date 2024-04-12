@@ -48,6 +48,7 @@ export default defineEventHandler(async (event) => {
 					total += player[`round${round}`].total;
 					player[`round${round}`].underPar = underPar;
 					player.total = total;
+					player.totalPar = totalPar;
 					player.totalUnderPar = total < totalPar;
 				}
 			}
