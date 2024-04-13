@@ -2,14 +2,7 @@
 	<main>
 		<section style="position: relative">
 			<ClientOnly>
-				<video
-					id="video"
-					class="video-js"
-					controls
-					preload="auto"
-					data-setup="{}"
-					:style="`max-height: ${player ? (player.isFullscreen() ? 'calc(100vh - 120px) !important' : 'unset') : 'unset'}`"
-				>
+				<video id="video" class="video-js" controls preload="auto" data-setup="{}">
 					<source v-if="activeFeed" :src="activeFeed" type="application/x-mpegURL" />
 					<v-btn
 						:icon="paused ? 'mdi-play' : 'mdi-pause'"
@@ -56,7 +49,7 @@
 				<div
 					class="ml-6 hidden-xs"
 					v-if="activeFeed"
-					v-for="feed in [feeds.filter((i:any) => i.channelId != 'fg2').find((i: any) => i.desktop[0].url == activeFeed)]"
+					v-for="feed in [feeds.filter((i:any) => i.channelId != 'fg2').find((i: any) => i.desktop[i.desktop.length - 1].url == activeFeed)]"
 				>
 					<h6 class="text-h6 mb-0 pb-0 mt-n1">{{ feed.name }}</h6>
 					<p class="text-overline mt-n3 mb-n2">Round {{ currentRound }}</p>
@@ -77,7 +70,7 @@
 								).filter((i: any) => i.channelId != 'fg2')"
 									:key="feed.channelId"
 									v-slot="{ isSelected, toggle }"
-									:value="feed.desktop[0].url"
+									:value="feed.desktop[feed.desktop.length - 1].url"
 								>
 									<v-list-item
 										@click="toggle"
@@ -460,8 +453,8 @@
 		display: none !important;
 	}
 
-	video,
 	div#video {
+		max-height: calc(100vh - 120px) !important;
 		height: 100%;
 		aspect-ratio: 16/9;
 		width: 100vw;
