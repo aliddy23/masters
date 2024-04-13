@@ -2,7 +2,14 @@
 	<main>
 		<section style="position: relative">
 			<ClientOnly>
-				<video id="video" class="video-js" controls preload="auto" data-setup="{}">
+				<video
+					id="video"
+					class="video-js"
+					controls
+					preload="auto"
+					data-setup="{}"
+					:style="`max-height: ${player ? (player.isFullscreen() ? 'calc(100vh - 120px) !important' : 'unset') : 'unset'}`"
+				>
 					<source v-if="activeFeed" :src="activeFeed" type="application/x-mpegURL" />
 					<v-btn
 						:icon="paused ? 'mdi-play' : 'mdi-pause'"
@@ -455,7 +462,6 @@
 
 	video,
 	div#video {
-		max-height: calc(100vh - 120px) !important;
 		height: 100%;
 		aspect-ratio: 16/9;
 		width: 100vw;
