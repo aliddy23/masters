@@ -138,12 +138,12 @@
 						>
 							{{ player.topar || "-" }}
 						</td>
-						<td class="text-center" v-if="player.status != 'C' && player.status != 'W' && player.active">
+						<td class="text-center" v-if="player.status != 'C' && player.status != 'W' && (player.active || player.today != '')">
 							{{ player.thru || "-" }}
 						</td>
 						<td
 							class="text-center"
-							v-if="player.status != 'C' && player.status != 'W' && player.active"
+							v-if="player.status != 'C' && player.status != 'W' && (player.active || player.today != '')"
 							:class="{
 								'text-red': pInt(player.today) < 0,
 								'text-green': pInt(player.today) >= 0 || player.today == 'E',
