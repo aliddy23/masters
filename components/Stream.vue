@@ -112,7 +112,7 @@
 					<tr
 						v-for="(player, index) in scores?.player"
 						:key="player.id"
-						:class="{ cutline: scores.cutLine ? player.topar > parseInt(scores.cutLine) : false }"
+						:class="{ cutline: scores.cutLine ? player.topar > parseInt(scores.cutLine) : false || player.status == 'C' }"
 					>
 						<td v-if="player.status == 'C'" class="font-weight-black text-center">MC</td>
 						<td v-else-if="player.status == 'W'" class="font-weight-black text-center">WD</td>
