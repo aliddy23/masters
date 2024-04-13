@@ -138,12 +138,12 @@
 						>
 							{{ player.topar || "-" }}
 						</td>
-						<td class="text-center" v-if="player.status != 'C' && player.status != 'W'">
+						<td class="text-center" v-if="player.status != 'C' && player.status != 'W' && player.active">
 							{{ player.thru || "-" }}
 						</td>
 						<td
 							class="text-center"
-							v-if="player.status != 'C' && player.status != 'W'"
+							v-if="player.status != 'C' && player.status != 'W' && player.active"
 							:class="{
 								'text-red': pInt(player.today) < 0,
 								'text-green': pInt(player.today) >= 0 || player.today == 'E',
@@ -151,8 +151,11 @@
 						>
 							{{ player.today || "-" }}
 						</td>
-						<td class="text-center" v-else colspan="2">
+						<td class="text-center" v-else-if="player.status == 'C' || player.status == 'W'" colspan="2">
 							{{ player.status == "C" ? "Missed Cut" : "Withdrew" }}
+						</td>
+						<td class="text-center" v-else colspan="2">
+							{{ player.teetime }}
 						</td>
 						<td
 							:class="{
@@ -226,9 +229,9 @@
 										</v-img>
 
 										<div class="pa-4" v-if="player.status != 'C' && player.status != 'W'">
-											<p><span class="font-weight-bold">Tee Time: </span>{{ player.teetime }}</p>
-											<p><span class="font-weight-bold">Group: </span>{{ player.group }}</p>
-											<p><span class="font-weight-bold">Thru: </span>{{ player.thru }}</p>
+											<p><span class="font-weight-bold">Tee Time: </span>{{ player.teetime || "-" }}</p>
+											<p><span class="font-weight-bold">Group: </span>{{ player.group || "-" }}</p>
+											<p><span class="font-weight-bold">Thru: </span>{{ player.thru || "-" }}</p>
 										</div>
 
 										<div class="pa-4" v-else>
