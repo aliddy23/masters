@@ -25,7 +25,7 @@
 	}
 
 	useHead({
-		title: `Error ${props.error.statusCode} - Lookout`,
+		title: `Error ${props.error.statusCode} - The Masters`,
 		htmlAttrs: {
 			lang: "en",
 		},
@@ -36,11 +36,7 @@
 			},
 			{
 				rel: "stylesheet",
-				href: "https://fonts.googleapis.com/css?family=Inter:300,400,500,700",
-			},
-			{
-				rel: "manifest",
-				href: "/site.webmanifest",
+				href: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700",
 			},
 			{
 				rel: "icon",

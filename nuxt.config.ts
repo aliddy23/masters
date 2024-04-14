@@ -27,7 +27,11 @@ export default defineNuxtConfig({
 				config.plugins.push(vuetify({ autoImport: true }));
 			});
 		},
+		"nuxt-scheduler",
 	],
+	imports: {
+		dirs: ["models", "controllers"],
+	},
 	ssr: false,
 	components: ["~/components"],
 	build: {

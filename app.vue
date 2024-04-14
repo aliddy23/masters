@@ -14,10 +14,6 @@
 		<v-main>
 			<Stream />
 		</v-main>
-
-		<footer style="background: #0a0a0a; color: #a3a3a3" class="pa-12 text-center">
-			<p>A project by <a href="https://www.aidanliddy.com" target="_blank" style="color: inherit !important">Aidan Liddy</a>.</p>
-		</footer>
 	</v-app>
 </template>
 
