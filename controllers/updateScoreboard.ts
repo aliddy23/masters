@@ -67,12 +67,14 @@ async function updateScoreboard(): Promise<IScoreboard> {
 
 		const hole = parseInt(newPlayer.thru);
 		if (
-			(newPlayer.thru != oldPlayer.thru ||
-				newPlayer.today != oldPlayer.today ||
-				newPlayer.topar != oldPlayer.topar ||
-				newPlayer.total != oldPlayer.total) &&
+			(newPlayer.thru != oldPlayer.thru || newPlayer.total != oldPlayer.total) &&
 			newPlayer[`round${newScoreboard.currentRoundInt}`].scores[hole - 1] != null
 		) {
+			let direction: -1 | 0 | 1 = 0;
+
+			if (parse(newPlayer.pos) > parse(oldPlayer.pos)) direction = -1;
+			else if (parse(newPlayer.pos) < parse(oldPlayer.pos)) direction = 1;
+
 			let movement: IMovement = {
 				player: newPlayer.id,
 				prev: {
@@ -90,10 +92,11 @@ async function updateScoreboard(): Promise<IScoreboard> {
 					topar: newPlayer.topar,
 					total: newPlayer.total,
 					totalUnderPar: newPlayer.totalUnderPar,
+					direction,
 				},
 				hole: {
 					hole,
-					shot: newPlayer[`round${newScoreboard.currentRoundInt}`].scores[hole - 1],
+					shot: newPlayer.total - oldPlayer.total,
 					par: newScoreboard.pars[`round${newScoreboard.currentRoundInt}`][hole - 1],
 				},
 			};
@@ -105,6 +108,11 @@ async function updateScoreboard(): Promise<IScoreboard> {
 
 	await Scoreboard.findOneAndReplace({}, newScoreboard);
 	return newScoreboard;
+}
+
+function parse(input: string): number {
+	if (input.includes("T")) return parseInt(input.substring(1));
+	else return parseInt(input);
 }
 
 export { updateScoreboard };

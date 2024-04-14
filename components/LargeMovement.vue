@@ -77,7 +77,9 @@
 						</table>
 					</div>
 
-					<v-icon size="32" class="mx-2" style="margin-top: 3px">mdi-arrow-right</v-icon>
+					<v-icon size="32" class="mx-2" style="margin-top: 3px" v-if="movement.new.direction == 1">mdi-arrow-top-right</v-icon>
+					<v-icon size="32" class="mx-2" style="margin-top: 3px" v-else-if="movement.new.direction == -1">mdi-arrow-bottom-right</v-icon>
+					<v-icon size="32" class="mx-2" style="margin-top: 3px" v-else>mdi-arrow-right</v-icon>
 
 					<div style="flex: 1">
 						<h4 class="text-h4 font-weight-black">{{ movement.new.pos }}</h4>

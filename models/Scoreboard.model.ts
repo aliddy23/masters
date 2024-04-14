@@ -99,6 +99,7 @@ interface IMovement {
 		today: string;
 		total: number;
 		totalUnderPar: boolean;
+		direction: -1 | 0 | 1;
 	};
 }
 
