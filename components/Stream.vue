@@ -302,10 +302,12 @@
 														<div
 															class="score"
 															:class="{
-																eagle: player[`round${i}`].scores[hole - 1] == scores.pars[`round${currentRound}`][hole - 1] - 2,
+																eagle:
+																	player[`round${i}`].scores[hole - 1] <= scores.pars[`round${currentRound}`][hole - 1] - 2 &&
+																	player[`round${i}`].scores[hole - 1] != null,
 																birdie: player[`round${i}`].scores[hole - 1] == scores.pars[`round${currentRound}`][hole - 1] - 1,
 																bogey: player[`round${i}`].scores[hole - 1] == scores.pars[`round${currentRound}`][hole - 1] + 1,
-																dblbogey: player[`round${i}`].scores[hole - 1] == scores.pars[`round${currentRound}`][hole - 1] + 2,
+																dblbogey: player[`round${i}`].scores[hole - 1] >= scores.pars[`round${currentRound}`][hole - 1] + 2,
 															}"
 														>
 															{{ player[`round${i}`].scores[hole - 1] || "-" }}
