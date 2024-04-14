@@ -2,7 +2,7 @@
 	<main style="height: calc(100vh - 48px)">
 		<div class="d-flex">
 			<div style="flex: 1; height: calc(100vh - 48px); overflow: scroll">
-				<section style="position: relative; flex-grow: 1">
+				<section style="position: relative; flex-grow: 1" v-if="scores && !scores.finished">
 					<ClientOnly>
 						<video id="video" class="video-js" controls preload="auto" data-setup="{}">
 							<source v-if="activeFeed" :src="activeFeed" type="application/x-mpegURL" />
@@ -91,7 +91,7 @@
 					</div>
 				</section>
 
-				<v-container style="max-width: 1200px" class="mt-0 pt-0">
+				<v-container style="max-width: 1200px" class="mt-0 pt-0" :class="{ 'pt-4': scores && scores.finished }">
 					<v-table density="compact" class="rounded-lg" fixed-header v-if="scores">
 						<thead>
 							<tr>
@@ -126,6 +126,13 @@
 											><span v-if="mdAndUp">, {{ player?.first_name }}</span>
 											<span v-if="player?.amateur"> (A)</span>
 											<span v-else-if="player?.firsttimer"> (R)</span>
+											<v-icon
+												size="20"
+												class="ml-1 text-yellow"
+												v-if="currentRound == 4 && player.thru == 'F' && player.pos == 1"
+												style="margin-top: -2px"
+												>mdi-crown</v-icon
+											>
 										</v-list-item-title>
 									</v-list-item>
 								</td>
@@ -229,7 +236,7 @@
 			</div>
 
 			<Movements
-				v-if="lgAndUp && scores"
+				v-if="lgAndUp && scores && !scores.finished"
 				class="px-3 pt-3"
 				style="width: 385px; height: calc(100vh - 48px); overflow: scroll"
 				:scores="scores"
@@ -263,6 +270,9 @@
 		else return 0;
 	});
 
+	let scoreInterval: NodeJS.Timeout;
+	let feedsInterval: NodeJS.Timeout;
+
 	onMounted(async () => {
 		setTimeout(() => {
 			player = videojs("video", {
@@ -293,8 +303,13 @@
 
 		await Promise.all([refreshScoreboard(), refreshFeeds()]);
 
-		setInterval(async () => await refreshScoreboard(), 30000);
-		setInterval(async () => await refreshFeeds(), 120000);
+		scoreInterval = setInterval(async () => await refreshScoreboard(), 30000);
+		feedsInterval = setInterval(async () => await refreshFeeds(), 120000);
+
+		if (scores.value.finished) {
+			clearInterval(scoreInterval);
+			clearInterval(feedsInterval);
+		}
 	});
 
 	let pause = () => {
