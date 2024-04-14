@@ -1,11 +1,11 @@
 <template>
 	<v-card class="mb-3 py-1">
 		<v-row no-gutters>
-			<v-col cols="3" class="d-flex" style="align-items: center; justify-content: center">
+			<v-col cols="2" class="d-flex" style="align-items: center; justify-content: center">
 				<h5 class="text-h5 font-weight-black">{{ movement.new.pos }}</h5>
 			</v-col>
 
-			<v-col cols="6" class="d-flex" style="align-items: center">
+			<v-col cols="7" class="d-flex" style="align-items: center">
 				<h6 class="text-h6 text-uppercase" style="white-space: nowrap; text-overflow: ellipsis">{{ player.last_name }}</h6>
 			</v-col>
 

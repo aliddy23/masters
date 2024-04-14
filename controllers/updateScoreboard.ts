@@ -67,7 +67,7 @@ async function updateScoreboard(): Promise<IScoreboard> {
 
 		const hole = parseInt(newPlayer.thru);
 		if (
-			(newPlayer.thru != oldPlayer.thru && newPlayer[`round${newScoreboard.currentRoundInt}`].scores[hole - 1]) ||
+			(newPlayer.thru != oldPlayer.thru && newPlayer[`round${newScoreboard.currentRoundInt}`].scores[hole - 1] != null) ||
 			newPlayer.today != oldPlayer.today ||
 			newPlayer.topar != oldPlayer.topar ||
 			newPlayer.total != oldPlayer.total

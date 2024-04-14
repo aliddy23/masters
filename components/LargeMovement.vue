@@ -1,13 +1,12 @@
 <template>
 	<v-card class="mb-3">
 		<v-row no-gutters>
-			<v-col cols="3">
-				<v-img :src="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`" class="rounded-be-lg elevation-6"></v-img>
-			</v-col>
-
-			<v-col cols="6" style="justify-content: center; flex-direction: column" class="pl-4 d-flex">
-				<h5 class="text-h5 font-weight-bold mb-n2 text-uppercase" style="white-space: nowrap; text-overflow: ellipsis">{{ player.last_name }},</h5>
-				<h6 class="text-h6 font-weight-regular">{{ player.first_name }}</h6>
+			<v-col cols="9" style="justify-content: center" class="d-flex">
+				<img :src="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`" height="75px" width="75px" class="rounded-be-lg elevation-6" />
+				<div style="flex-direction: column; justify-content: center; flex: 1" class="pl-4 d-flex">
+					<h5 class="text-h5 font-weight-bold mb-n2 text-uppercase" style="white-space: nowrap; text-overflow: ellipsis">{{ player.last_name }},</h5>
+					<h6 class="text-h6 font-weight-regular mb-n1">{{ player.first_name }}</h6>
+				</div>
 			</v-col>
 
 			<v-col cols="3" class="pr-3 d-flex" style="flex-direction: column; align-items: flex-end; justify-content: center">
