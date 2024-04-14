@@ -100,11 +100,13 @@ async function updateScoreboard(): Promise<IScoreboard> {
 					par: newScoreboard.pars[`round${newScoreboard.currentRoundInt}`][hole - 1],
 				},
 			};
+
+			const index = newScoreboard.movements.findIndex((i) => i.player == movement.player);
+			if (index != -1) newScoreboard.movements.splice(index, 1);
+
 			newScoreboard.movements.unshift(movement);
 		}
 	}
-
-	newScoreboard.movements = newScoreboard.movements.slice(0, 10);
 
 	await Scoreboard.findOneAndReplace({}, newScoreboard);
 	return newScoreboard;

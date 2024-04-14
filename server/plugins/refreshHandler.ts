@@ -15,5 +15,5 @@ async function startFeedScheduler() {
 async function startScoreScheduler() {
 	const scheduler = useScheduler();
 	await updateScoreboard();
-	scheduler.run(async () => await updateScoreboard()).everySeconds(15);
+	scheduler.run(async () => await updateScoreboard()).everySeconds(20);
 }
