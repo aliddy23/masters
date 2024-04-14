@@ -113,7 +113,7 @@ async function updateScoreboard(): Promise<IScoreboard> {
 }
 
 function parse(input: string): number {
-	if (input.includes("T")) return parseInt(input.substring(1));
+	if (input.includes("T")) return parseInt(input.substring(1)) + 0.1;
 	else return parseInt(input);
 }
 
