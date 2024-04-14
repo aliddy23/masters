@@ -93,137 +93,135 @@
 					</div>
 				</section>
 
-				<v-container v-if="scores" :class="{ 'mr-0 pr-0': lgAndUp }">
-					<v-table density="compact" class="rounded-lg mb-2" fixed-header>
-						<thead>
-							<tr>
-								<th class="text-center" style="width: 60px; background: #282828"></th>
-								<th class="text-left" style="background: #282828"></th>
-								<th class="text-center" style="white-space: nowrap; width: 60px; background: #282828">To Par</th>
-								<th class="text-center" style="width: 60px; background: #282828">Thru</th>
-								<th class="text-center" style="width: 60px; background: #282828">Today</th>
-								<th class="text-center" style="width: 60px; background: #282828">R1</th>
-								<th class="text-center" style="width: 60px; background: #282828">R2</th>
-								<th class="text-center" style="width: 60px; background: #282828">R3</th>
-								<th class="text-center" style="width: 60px; background: #282828">R4</th>
-								<th class="text-center" style="width: 60px; background: #282828">Par</th>
-								<th class="text-center" style="width: 60px; background: #282828">Total</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr
-								v-for="(player, index) in scores?.player"
-								:key="player.id"
-								:class="{ cutline: scores.cutLine ? player.topar > parseInt(scores.cutLine) : false || player.status == 'C' }"
+				<v-table density="compact" class="rounded-lg ml-4 my-4" fixed-header v-if="scores">
+					<thead>
+						<tr>
+							<th class="text-center" style="width: 60px; background: #282828"></th>
+							<th class="text-left" style="background: #282828"></th>
+							<th class="text-center" style="white-space: nowrap; width: 60px; background: #282828">To Par</th>
+							<th class="text-center" style="width: 60px; background: #282828">Thru</th>
+							<th class="text-center" style="width: 60px; background: #282828">Today</th>
+							<th class="text-center" style="width: 60px; background: #282828">R1</th>
+							<th class="text-center" style="width: 60px; background: #282828">R2</th>
+							<th class="text-center" style="width: 60px; background: #282828">R3</th>
+							<th class="text-center" style="width: 60px; background: #282828">R4</th>
+							<th class="text-center" style="width: 60px; background: #282828">Par</th>
+							<th class="text-center" style="width: 60px; background: #282828">Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr
+							v-for="(player, index) in scores?.player"
+							:key="player.id"
+							:class="{ cutline: scores.cutLine ? player.topar > parseInt(scores.cutLine) : false || player.status == 'C' }"
+						>
+							<td v-if="player.status == 'C'" class="font-weight-black text-center">MC</td>
+							<td v-else-if="player.status == 'W'" class="font-weight-black text-center">WD</td>
+							<td v-else class="font-weight-black text-center">
+								{{ player?.pos }}
+							</td>
+							<td style="min-width: 200px">
+								<v-list-item class="ma-0 pa-0" :prepend-avatar="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`">
+									<v-list-item-title>
+										<span class="font-weight-bold">{{ player?.last_name }}</span
+										><span v-if="mdAndUp">, {{ player?.first_name }}</span>
+										<span v-if="player?.amateur"> (A)</span>
+										<span v-else-if="player?.firsttimer"> (F)</span>
+									</v-list-item-title>
+								</v-list-item>
+							</td>
+							<td
+								class="text-center"
+								:class="{
+									'text-red': pInt(player.topar) < 0,
+									'text-green': pInt(player.topar) >= 0 || player.topar == 'E',
+								}"
 							>
-								<td v-if="player.status == 'C'" class="font-weight-black text-center">MC</td>
-								<td v-else-if="player.status == 'W'" class="font-weight-black text-center">WD</td>
-								<td v-else class="font-weight-black text-center">
-									{{ player?.pos }}
-								</td>
-								<td style="min-width: 200px">
-									<v-list-item class="ma-0 pa-0" :prepend-avatar="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`">
-										<v-list-item-title>
-											<span class="font-weight-bold">{{ player?.last_name }}</span
-											><span v-if="mdAndUp">, {{ player?.first_name }}</span>
-											<span v-if="player?.amateur"> (A)</span>
-											<span v-else-if="player?.firsttimer"> (F)</span>
-										</v-list-item-title>
-									</v-list-item>
-								</td>
-								<td
-									class="text-center"
-									:class="{
-										'text-red': pInt(player.topar) < 0,
-										'text-green': pInt(player.topar) >= 0 || player.topar == 'E',
-									}"
-								>
-									{{ player.topar || "-" }}
-								</td>
-								<td class="text-center" v-if="player.status != 'C' && player.status != 'W' && (player.active || player.today != '')">
-									{{ player.thru || "-" }}
-								</td>
-								<td
-									class="text-center"
-									v-if="player.status != 'C' && player.status != 'W' && (player.active || player.today != '')"
-									:class="{
-										'text-red': pInt(player.today) < 0,
-										'text-green': pInt(player.today) >= 0 || player.today == 'E',
-									}"
-								>
-									{{ player.today || "-" }}
-								</td>
-								<td class="text-center" v-else-if="player.status == 'C' || player.status == 'W'" colspan="2">
-									{{ player.status == "C" ? "Missed Cut" : "Withdrew" }}
-								</td>
-								<td class="text-center" v-else colspan="2">
-									{{ player.teetime }}
-								</td>
-								<td
-									:class="{
-										'text-red': player.round1.underPar,
-										'text-green': !player.round1.underPar,
-										'text-grey-lighten-5': !player.round1.total,
-										'font-italic': player.round1.roundStatus != 'Finished',
-									}"
-									class="text-center"
-								>
-									{{ player.round1.total || "-" }}
-								</td>
-								<td
-									:class="{
-										'text-red': player.round2.underPar,
-										'text-green': !player.round2.underPar,
-										'text-grey-lighten-5': !player.round2.total,
-										'font-italic': player.round2.roundStatus != 'Finished',
-									}"
-									class="text-center"
-								>
-									{{ player.round2.total || "-" }}
-								</td>
-								<td
-									:class="{
-										'text-red': player.round3.underPar,
-										'text-green': !player.round3.underPar,
-										'text-grey-lighten-5': !player.round3.total,
-										'font-italic': player.round3.roundStatus != 'Finished',
-									}"
-									class="text-center"
-								>
-									{{ player.round3.total || "-" }}
-								</td>
-								<td
-									:class="{
-										'text-red': player.round4.underPar,
-										'text-green': !player.round4.underPar,
-										'text-grey-lighten-5': !player.round4.total,
-										'font-italic': player.round4.roundStatus != 'Finished',
-									}"
-									class="text-center"
-								>
-									{{ player.round4.total || "-" }}
-								</td>
-								<td class="text-center">
-									{{ player.totalPar || "-" }}
-								</td>
-								<td
-									:class="{
-										'text-red': player.totalUnderPar,
-										'text-green': !player.totalUnderPar,
-										'text-grey-lighten-5': !player.total || player.status == 'W',
-									}"
-									class="text-center"
-								>
-									{{ player.total || "-" }}
-								</td>
+								{{ player.topar || "-" }}
+							</td>
+							<td class="text-center" v-if="player.status != 'C' && player.status != 'W' && (player.active || player.today != '')">
+								{{ player.thru || "-" }}
+							</td>
+							<td
+								class="text-center"
+								v-if="player.status != 'C' && player.status != 'W' && (player.active || player.today != '')"
+								:class="{
+									'text-red': pInt(player.today) < 0,
+									'text-green': pInt(player.today) >= 0 || player.today == 'E',
+								}"
+							>
+								{{ player.today || "-" }}
+							</td>
+							<td class="text-center" v-else-if="player.status == 'C' || player.status == 'W'" colspan="2">
+								{{ player.status == "C" ? "Missed Cut" : "Withdrew" }}
+							</td>
+							<td class="text-center" v-else colspan="2">
+								{{ player.teetime }}
+							</td>
+							<td
+								:class="{
+									'text-red': player.round1.underPar,
+									'text-green': !player.round1.underPar,
+									'text-grey-lighten-5': !player.round1.total,
+									'font-italic': player.round1.roundStatus != 'Finished',
+								}"
+								class="text-center"
+							>
+								{{ player.round1.total || "-" }}
+							</td>
+							<td
+								:class="{
+									'text-red': player.round2.underPar,
+									'text-green': !player.round2.underPar,
+									'text-grey-lighten-5': !player.round2.total,
+									'font-italic': player.round2.roundStatus != 'Finished',
+								}"
+								class="text-center"
+							>
+								{{ player.round2.total || "-" }}
+							</td>
+							<td
+								:class="{
+									'text-red': player.round3.underPar,
+									'text-green': !player.round3.underPar,
+									'text-grey-lighten-5': !player.round3.total,
+									'font-italic': player.round3.roundStatus != 'Finished',
+								}"
+								class="text-center"
+							>
+								{{ player.round3.total || "-" }}
+							</td>
+							<td
+								:class="{
+									'text-red': player.round4.underPar,
+									'text-green': !player.round4.underPar,
+									'text-grey-lighten-5': !player.round4.total,
+									'font-italic': player.round4.roundStatus != 'Finished',
+								}"
+								class="text-center"
+							>
+								{{ player.round4.total || "-" }}
+							</td>
+							<td class="text-center">
+								{{ player.totalPar || "-" }}
+							</td>
+							<td
+								:class="{
+									'text-red': player.totalUnderPar,
+									'text-green': !player.totalUnderPar,
+									'text-grey-lighten-5': !player.total || player.status == 'W',
+								}"
+								class="text-center"
+							>
+								{{ player.total || "-" }}
+							</td>
 
-								<v-menu open-on-hover :close-on-content-click="false" activator="parent">
-									<Scorecard :player="player" :scores="scores" :currentRound="currentRound" />
-								</v-menu>
-							</tr>
-						</tbody>
-					</v-table>
-				</v-container>
+							<v-menu open-on-hover :close-on-content-click="false" activator="parent">
+								<Scorecard :player="player" :scores="scores" :currentRound="currentRound" />
+							</v-menu>
+						</tr>
+					</tbody>
+				</v-table>
 
 				<footer style="background: #0a0a0a; color: #a3a3a3" class="pa-12 text-center">
 					<p>A project by <a href="https://www.aidanliddy.com" target="_blank" style="color: inherit !important">Aidan Liddy</a>.</p>
