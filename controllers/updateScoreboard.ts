@@ -65,14 +65,13 @@ async function updateScoreboard(): Promise<IScoreboard> {
 	for (const newPlayer of newScoreboard.player) {
 		const oldPlayer = oldScoreboard.player.find((i) => i.id == newPlayer.id) as IPlayer;
 
+		const hole = parseInt(newPlayer.thru);
 		if (
-			newPlayer.thru != oldPlayer.thru ||
+			(newPlayer.thru != oldPlayer.thru && newPlayer[`round${newScoreboard.currentRoundInt}`].scores[hole - 1]) ||
 			newPlayer.today != oldPlayer.today ||
 			newPlayer.topar != oldPlayer.topar ||
 			newPlayer.total != oldPlayer.total
 		) {
-			console.log(newPlayer.thru);
-			const hole = parseInt(newPlayer.thru);
 			let movement: IMovement = {
 				player: newPlayer.id,
 				prev: {
@@ -98,7 +97,6 @@ async function updateScoreboard(): Promise<IScoreboard> {
 				},
 			};
 			newScoreboard.movements.unshift(movement);
-			console.log("movement");
 		}
 	}
 
