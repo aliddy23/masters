@@ -289,8 +289,8 @@
 
 		await Promise.all([refreshScoreboard(), refreshFeeds()]);
 
-		setInterval(async () => await refreshScoreboard(), 15000);
-		setInterval(async () => await refreshFeeds(), 60000);
+		setInterval(async () => await refreshScoreboard(), 30000);
+		setInterval(async () => await refreshFeeds(), 120000);
 	});
 
 	let pause = () => {
