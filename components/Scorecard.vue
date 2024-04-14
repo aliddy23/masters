@@ -25,7 +25,7 @@
 					<h4 class="text-h4 font-weight-medium">
 						{{ player?.first_name }} {{ player?.last_name }}
 						<span v-if="player?.amateur" class="text-overline ml-1">Amateur</span>
-						<span v-else-if="player?.firsttimer" class="text-overline ml-1">First-Timer</span>
+						<span v-else-if="player?.firsttimer" class="text-overline ml-1">Rookie</span>
 						<span v-else-if="player?.past" class="text-overline ml-1">Past Winner</span>
 					</h4>
 					<v-spacer></v-spacer>

@@ -29,17 +29,12 @@
 					<p>on</p>
 					<h5 class="text-h5 ml-2">{{ movement.hole.hole }}</h5>
 				</div>
-
-				<p>
-					Par
-					<span class="text-h5 font-weight-medium">{{ movement.hole.par }}</span>
-				</p>
 			</v-col>
 
-			<v-col cols="12" class="text-center px-1 pt-3 pb-1">
+			<v-col cols="12" class="text-center px-1 py-1">
 				<div class="d-flex">
 					<div style="flex: 1">
-						<h4 class="text-h4 font-weight-black mb-2">{{ movement.prev.pos }}</h4>
+						<h4 class="text-h4 font-weight-black">{{ movement.prev.pos }}</h4>
 						<table class="text-center" style="white-space: nowrap">
 							<thead>
 								<tr>
@@ -85,7 +80,7 @@
 					<v-icon size="32" class="mx-2" style="margin-top: 3px">mdi-arrow-right</v-icon>
 
 					<div style="flex: 1">
-						<h4 class="text-h4 font-weight-black mb-2">{{ movement.new.pos }}</h4>
+						<h4 class="text-h4 font-weight-black">{{ movement.new.pos }}</h4>
 						<table class="text-center" style="white-space: nowrap">
 							<thead>
 								<tr>

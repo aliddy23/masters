@@ -125,7 +125,7 @@
 											<span class="font-weight-bold">{{ player?.last_name }}</span
 											><span v-if="mdAndUp">, {{ player?.first_name }}</span>
 											<span v-if="player?.amateur"> (A)</span>
-											<span v-else-if="player?.firsttimer"> (F)</span>
+											<span v-else-if="player?.firsttimer"> (R)</span>
 										</v-list-item-title>
 									</v-list-item>
 								</td>
