@@ -1,11 +1,8 @@
 <template>
 	<div>
-		<h5 class="text-h5">Recent Movements</h5>
-		<v-divider class="mt-1 mb-3"></v-divider>
-
 		<div v-for="(movement, index) in scores.movements">
 			<LargeMovement
-				v-if="index < 3"
+				v-if="index < 4"
 				:scores="scores"
 				:currentRound="currentRound"
 				:movement="movement"
