@@ -231,7 +231,7 @@
 			<Movements
 				v-if="lgAndUp && scores"
 				class="px-3 pt-3"
-				style="max-width: 385px; height: calc(100vh - 48px); overflow: scroll"
+				style="width: 385px; height: calc(100vh - 48px); overflow: scroll"
 				:scores="scores"
 				:currentRound="currentRound"
 			/>

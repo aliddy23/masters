@@ -17,7 +17,7 @@
 			/>
 		</div>
 
-		<p class="text-grey font-italic text-center" v-if="scores.movements.length == 0">No movements.</p>
+		<p class="text-grey font-italic text-center mt-6" v-if="scores.movements.length == 0">No movements.</p>
 	</div>
 </template>
 
