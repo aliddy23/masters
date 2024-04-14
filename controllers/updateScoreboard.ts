@@ -67,10 +67,11 @@ async function updateScoreboard(): Promise<IScoreboard> {
 
 		const hole = parseInt(newPlayer.thru);
 		if (
-			(newPlayer.thru != oldPlayer.thru && newPlayer[`round${newScoreboard.currentRoundInt}`].scores[hole - 1] != null) ||
-			newPlayer.today != oldPlayer.today ||
-			newPlayer.topar != oldPlayer.topar ||
-			newPlayer.total != oldPlayer.total
+			(newPlayer.thru != oldPlayer.thru ||
+				newPlayer.today != oldPlayer.today ||
+				newPlayer.topar != oldPlayer.topar ||
+				newPlayer.total != oldPlayer.total) &&
+			newPlayer[`round${newScoreboard.currentRoundInt}`].scores[hole - 1] != null
 		) {
 			let movement: IMovement = {
 				player: newPlayer.id,
