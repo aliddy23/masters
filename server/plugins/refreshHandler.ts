@@ -3,7 +3,7 @@ import { updateFeeds } from "~/controllers/updateFeeds";
 import { updateScoreboard } from "~/controllers/updateScoreboard";
 
 export default defineNitroPlugin(async () => {
-	await Promise.all([startFeedScheduler(), startScoreScheduler()]);
+	// await Promise.all([startFeedScheduler(), startScoreScheduler()]);
 });
 
 async function startFeedScheduler() {
