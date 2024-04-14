@@ -82,7 +82,8 @@
 					<v-icon size="32" class="mx-2" style="margin-top: 3px" v-else>mdi-arrow-right</v-icon>
 
 					<div style="flex: 1">
-						<h4 class="text-h4 font-weight-black">{{ movement.new.pos }}</h4>
+						<h4 class="text-h4 font-weight-black" v-if="movement.new.pos != 1 || movement.new.thru != 'F'">{{ movement.new.pos }}</h4>
+						<v-icon v-else class="text-yellow mb-2" size="32">mdi-crown</v-icon>
 						<table class="text-center" style="white-space: nowrap">
 							<thead>
 								<tr>
