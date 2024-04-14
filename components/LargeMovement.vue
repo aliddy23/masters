@@ -5,18 +5,12 @@
 				<v-img :src="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`" class="rounded-be-lg elevation-6"></v-img>
 			</v-col>
 
-			<v-col cols="6">
-				<div class="ma-4 d-flex" style="align-items: baseline">
-					<div>
-						<h5 class="text-h5 font-weight-bold mb-n2 text-uppercase" style="white-space: nowrap; text-overflow: ellipsis">
-							{{ player.last_name }},
-						</h5>
-						<h6 class="text-h6 font-weight-regular">{{ player.first_name }}</h6>
-					</div>
-				</div>
+			<v-col cols="6" style="justify-content: center; flex-direction: column" class="pl-4 d-flex">
+				<h5 class="text-h5 font-weight-bold mb-n2 text-uppercase" style="white-space: nowrap; text-overflow: ellipsis">{{ player.last_name }},</h5>
+				<h6 class="text-h6 font-weight-regular">{{ player.first_name }}</h6>
 			</v-col>
 
-			<v-col cols="3" class="pt-3 pr-3 d-flex" style="flex-direction: column; align-items: flex-end">
+			<v-col cols="3" class="pr-3 d-flex" style="flex-direction: column; align-items: flex-end; justify-content: center">
 				<div class="d-flex" style="align-items: baseline">
 					<div
 						class="score text-h5 font-weight-black mr-2"
