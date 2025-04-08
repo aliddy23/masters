@@ -6,7 +6,7 @@ module.exports = {
 			exec_mode: "cluster",
 			interpreter: "bun",
 			instances: 4,
-			script: "./build/server/index.mjs",
+			script: "./.output/server/index.mjs",
 			watch: false
 		},
 	],
