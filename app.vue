@@ -3,9 +3,9 @@
 		<v-app-bar density="compact" color="#146E4E">
 			<img src="~/public/favicon.ico" style="height: 32px; width: 32px" class="ml-4" />
 			<v-app-bar-title style="flex-grow: 2">
-				<h6 class="text-h6 mb-0 pb-0 mt-n1 hidden-xs">The 88th Masters Tournament</h6>
-				<h6 class="text-h6 mb-0 pb-0 mt-n1 hidden-sm-and-up">The 88th Masters</h6>
-				<p class="text-overline mt-n3 mb-n2">April 11-14, 2024</p>
+				<h6 class="text-h6 mb-0 pb-0 mt-n1 hidden-xs">The 89th Masters Tournament</h6>
+				<h6 class="text-h6 mb-0 pb-0 mt-n1 hidden-sm-and-up">The 89th Masters</h6>
+				<p class="text-overline mt-n3 mb-n2">April 10-13, 2025</p>
 			</v-app-bar-title>
 
 			<v-btn size="x-small" icon href="https://github.com/aliddy23/masters" target="_blank"><v-icon size="22">mdi-github</v-icon></v-btn>

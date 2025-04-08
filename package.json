@@ -6,23 +6,23 @@
 		"build": "nuxt build",
 		"dev": "nuxt dev --host 0.0.0.0",
 		"postinstall": "nuxt prepare",
-		"start": "node .output/server/index.mjs",
-		"update": "git pull --rebase && npm run build && pm2 restart masters"
+		"start": "bun .output/server/index.mjs",
+		"update": "git pull --rebase && bun run build && pm2 restart masters"
 	},
 	"devDependencies": {
 		"@mdi/font": "^7.4.47",
-		"@nuxt/devtools": "^1.0.8",
-		"@types/node": "^18",
-		"nuxt": "^3.11.1",
-		"vite-plugin-vuetify": "^2.0.2",
-		"vuetify": "^3.5.7"
+		"@nuxt/devtools": "^2.3.2",
+		"@types/node": "^22",
+		"nuxt": "^3.16.2",
+		"vite-plugin-vuetify": "^2.1.1",
+		"vuetify": "^3.8.1"
 	},
 	"dependencies": {
-		"@types/video.js": "^7.3.57",
-		"axios": "^1.6.7",
-		"dayjs": "^1.11.10",
-		"mongoose": "^8.3.1",
+		"@types/video.js": "^7.3.58",
+		"axios": "^1.8.4",
+		"dayjs": "^1.11.13",
+		"mongoose": "^8.13.2",
 		"nuxt-scheduler": "^0.1.9",
-		"video.js": "^8.0.4"
+		"video.js": "^8.22.0"
 	}
 }

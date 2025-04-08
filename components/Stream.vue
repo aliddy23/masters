@@ -228,9 +228,14 @@
 							</tr>
 						</tbody>
 					</v-table>
+
+					<div v-else class="text-center">
+						<h3 class="text-h3 font-weight-light" style="margin-top: 20dvh">The Masters</h3>
+						<p class="mt-4">Scoring data is unavailable.</p>
+					</div>
 				</v-container>
 
-				<footer style="background: #0a0a0a; color: #a3a3a3" class="pa-12 text-center">
+				<footer style="background: #0a0a0a; color: #a3a3a3; top: calc(100dvh - 120px); position: absolute; width: 100vw" class="pa-12 text-center">
 					<p>A project by <a href="https://www.aidanliddy.com" target="_blank" style="color: inherit !important">Aidan Liddy</a>.</p>
 				</footer>
 			</div>
