@@ -2,7 +2,7 @@ import { useScheduler } from "#scheduler";
 import { updateFeeds } from "~/controllers/updateFeeds";
 import { updateScoreboard } from "~/controllers/updateScoreboard";
 import dayjs from "dayjs";
-import isBetween from 'dayjs/plugin/isBetween'
+import isBetween from 'dayjs/plugin/isBetween.js'
 dayjs.extend(isBetween)
 
 export default defineNitroPlugin(async () => {
