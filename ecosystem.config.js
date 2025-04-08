@@ -3,8 +3,11 @@ module.exports = {
 		{
 			name: "masters",
 			port: "3001",
-			script: "./.output/server/index.mjs",
-			watch: false,
+			exec_mode: "cluster",
+			interpreter: "bun",
+			instances: 4,
+			script: "./build/server/index.mjs",
+			watch: false
 		},
 	],
 };

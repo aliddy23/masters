@@ -34,7 +34,7 @@
 			<v-col cols="12" class="text-center px-1 py-1">
 				<div class="d-flex">
 					<div style="flex: 1">
-						<h4 class="text-h4 font-weight-black">{{ movement.prev.pos }}</h4>
+						<h4 class="text-h4 font-weight-black">{{ movement.prev?.pos }}</h4>
 						<table class="text-center" style="white-space: nowrap">
 							<thead>
 								<tr>
@@ -48,29 +48,29 @@
 									<td
 										class="text-h5"
 										:class="{
-											'text-red': pInt(movement.prev.topar) < 0,
-											'text-green': pInt(movement.prev.topar) >= 0 || movement.prev.topar == 'E',
+											'text-red': pInt(movement.prev?.topar) < 0,
+											'text-green': pInt(movement.prev?.topar) >= 0 || movement.prev?.topar == 'E',
 										}"
 									>
-										{{ movement.prev.topar || "-" }}
+										{{ movement.prev?.topar || "-" }}
 									</td>
 									<td
 										class="text-h5"
 										:class="{
-											'text-red': pInt(movement.prev.today) < 0,
-											'text-green': pInt(movement.prev.today) >= 0 || movement.prev.today == 'E',
+											'text-red': pInt(movement.prev?.today) < 0,
+											'text-green': pInt(movement.prev?.today) >= 0 || movement.prev?.today == 'E',
 										}"
 									>
-										{{ movement.prev.today || "-" }}
+										{{ movement.prev?.today || "-" }}
 									</td>
 									<td
 										class="text-h5"
 										:class="{
-											'text-red': movement.prev.totalUnderPar,
-											'text-green': !movement.prev.totalUnderPar,
+											'text-red': movement.prev?.totalUnderPar,
+											'text-green': !movement.prev?.totalUnderPar,
 										}"
 									>
-										{{ movement.prev.total || "-" }}
+										{{ movement.prev?.total || "-" }}
 									</td>
 								</tr>
 							</tbody>

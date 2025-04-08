@@ -5,7 +5,7 @@ async function updateScoreboard(): Promise<IScoreboard> {
 	const oldScoreboard: IScoreboard = (await Scoreboard.findOne()) as IScoreboard;
 
 	const newScoreboard: IScoreboard = await axios
-		.get("https://www.masters.com/en_US/scores/feeds/2024/scores.json", {
+		.get("https://www.masters.com/en_US/scores/feeds/2025/scores.json", {
 			headers: {
 				Host: "www.masters.com",
 				Connection: "keep-alive",
@@ -14,6 +14,8 @@ async function updateScoreboard(): Promise<IScoreboard> {
 		})
 		.then(async (response) => {
 			let currentRound = 0;
+			if (!response.data.data) return;
+
 			if (response.data.data.currentRound == "1000") currentRound = 1;
 			else if (response.data.data.currentRound == "0100") currentRound = 2;
 			else if (response.data.data.currentRound == "0010") currentRound = 3;
@@ -60,6 +62,8 @@ async function updateScoreboard(): Promise<IScoreboard> {
 			return response.data.data;
 		});
 
+	if (!newScoreboard) return oldScoreboard;
+
 	newScoreboard.movements = oldScoreboard.movements;
 
 	for (const newPlayer of newScoreboard.player) {
@@ -67,23 +71,23 @@ async function updateScoreboard(): Promise<IScoreboard> {
 
 		const hole = newPlayer.thru == "" ? -1 : newPlayer.thru == "F" ? 18 : parseInt(newPlayer.thru);
 		if (
-			(newPlayer.thru != oldPlayer.thru || newPlayer.total != oldPlayer.total) &&
+			(newPlayer.thru != oldPlayer?.thru || newPlayer.total != oldPlayer?.total) &&
 			newPlayer[`round${newScoreboard.currentRoundInt}`].scores[hole - 1] != null
 		) {
 			let direction: -1 | 0 | 1 = 0;
 
-			if (parse(newPlayer.pos) > parse(oldPlayer.pos)) direction = -1;
-			else if (parse(newPlayer.pos) < parse(oldPlayer.pos)) direction = 1;
+			if (parse(newPlayer.pos) > parse(oldPlayer?.pos)) direction = -1;
+			else if (parse(newPlayer.pos) < parse(oldPlayer?.pos)) direction = 1;
 
 			let movement: IMovement = {
 				player: newPlayer.id,
 				prev: {
-					pos: oldPlayer.pos,
-					thru: oldPlayer.thru,
-					today: oldPlayer.today,
-					topar: oldPlayer.topar,
-					total: oldPlayer.total,
-					totalUnderPar: oldPlayer.totalUnderPar,
+					pos: oldPlayer?.pos,
+					thru: oldPlayer?.thru,
+					today: oldPlayer?.today,
+					topar: oldPlayer?.topar,
+					total: oldPlayer?.total,
+					totalUnderPar: oldPlayer?.totalUnderPar,
 				},
 				new: {
 					pos: newPlayer.pos,
@@ -96,7 +100,7 @@ async function updateScoreboard(): Promise<IScoreboard> {
 				},
 				hole: {
 					hole,
-					shot: newPlayer.total - oldPlayer.total,
+					shot: newPlayer.total - (oldPlayer ? oldPlayer.total : 0),
 					par: newScoreboard.pars[`round${newScoreboard.currentRoundInt}`][hole - 1],
 				},
 			};
@@ -113,6 +117,7 @@ async function updateScoreboard(): Promise<IScoreboard> {
 }
 
 function parse(input: string): number {
+	if (!input) return 0;
 	if (input.includes("T")) return parseInt(input.substring(1)) + 0.1;
 	else return parseInt(input);
 }

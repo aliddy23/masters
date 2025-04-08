@@ -1,9 +1,13 @@
 import { useScheduler } from "#scheduler";
 import { updateFeeds } from "~/controllers/updateFeeds";
 import { updateScoreboard } from "~/controllers/updateScoreboard";
+import dayjs from "dayjs";
+import isBetween from 'dayjs/plugin/isBetween'
+dayjs.extend(isBetween)
 
 export default defineNitroPlugin(async () => {
-	// await Promise.all([startFeedScheduler(), startScoreScheduler()]);
+	if (dayjs().isBetween(dayjs("2023-04-10"), dayjs("2023-04-13")))
+		await Promise.all([startFeedScheduler(), startScoreScheduler()]);
 });
 
 async function startFeedScheduler() {
