@@ -1,7 +1,7 @@
 <template>
 	<main style="height: calc(100vh - 48px)">
 		<div class="d-flex">
-			<div style="flex: 1; height: calc(100vh - 48px); overflow: scroll">
+			<div style="flex: 1; height: calc(100vh - 48px); overflow: auto">
 				<section style="position: relative; flex-grow: 1" v-if="scores && !scores.finished">
 					<ClientOnly>
 						<video id="video" class="video-js" controls preload="auto" data-setup="{}">
@@ -95,17 +95,17 @@
 					<v-table density="compact" class="rounded-lg" fixed-header v-if="scores">
 						<thead>
 							<tr>
-								<th class="text-center" style="width: 60px; background: #282828"></th>
-								<th class="text-left" style="background: #282828"></th>
-								<th class="text-center" style="white-space: nowrap; width: 60px; background: #282828">To Par</th>
-								<th class="text-center" style="width: 60px; background: #282828">Thru</th>
-								<th class="text-center" style="width: 60px; background: #282828">Today</th>
-								<th class="text-center" style="width: 60px; background: #282828">R1</th>
-								<th class="text-center" style="width: 60px; background: #282828">R2</th>
-								<th class="text-center" style="width: 60px; background: #282828">R3</th>
-								<th class="text-center" style="width: 60px; background: #282828">R4</th>
-								<th class="text-center" style="width: 60px; background: #282828">Par</th>
-								<th class="text-center" style="width: 60px; background: #282828">Total</th>
+								<th class="text-center" style="width: 60px; background: #303030"></th>
+								<th class="text-left" style="background: #303030"></th>
+								<th class="text-center" style="white-space: nowrap; width: 60px; background: #303030">To Par</th>
+								<th class="text-center" style="width: 60px; background: #303030">Thru</th>
+								<th class="text-center" style="width: 60px; background: #303030">Today</th>
+								<th class="text-center" style="width: 60px; background: #303030">R1</th>
+								<th class="text-center" style="width: 60px; background: #303030">R2</th>
+								<th class="text-center" style="width: 60px; background: #303030">R3</th>
+								<th class="text-center" style="width: 60px; background: #303030">R4</th>
+								<th class="text-center" style="width: 60px; background: #303030">Par</th>
+								<th class="text-center" style="width: 60px; background: #303030">Total</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -122,10 +122,10 @@
 								<td style="min-width: 200px">
 									<v-list-item class="ma-0 pa-0" :prepend-avatar="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`">
 										<v-list-item-title>
-											<span class="font-weight-bold">{{ player?.last_name }}</span
-											><span v-if="mdAndUp">, {{ player?.first_name }}</span>
-											<span v-if="player?.amateur"> (A)</span>
-											<span v-else-if="player?.firsttimer"> (R)</span>
+											<span class="font-weight-bold">{{ player?.last_name }}</span>
+											<span v-if="mdAndUp" class="mr-2">, {{ player?.first_name }}</span>
+											<v-chip v-if="player?.amateur" class="text-overline" size="small">AMATEUR</v-chip>
+											<v-chip v-else-if="player?.firsttimer" class="text-overline" size="small">ROOKIE</v-chip>
 											<v-icon
 												size="20"
 												class="ml-1 text-yellow"
@@ -158,7 +158,7 @@
 								>
 									{{ player.today || "-" }}
 								</td>
-								<td class="text-center" v-else-if="player.status == 'C' || player.status == 'W'" colspan="2">
+								<td class="text-center font-italic" v-else-if="player.status == 'C' || player.status == 'W'" colspan="2">
 									{{ player.status == "C" ? "Missed Cut" : "Withdrew" }}
 								</td>
 								<td class="text-center" v-else colspan="2">
@@ -238,7 +238,7 @@
 			<Movements
 				v-if="lgAndUp && scores && !scores.finished"
 				class="px-3 pt-3"
-				style="width: 385px; height: calc(100vh - 48px); overflow: scroll"
+				style="width: 385px; height: calc(100vh - 48px); overflow: auto"
 				:scores="scores"
 				:currentRound="currentRound"
 			/>

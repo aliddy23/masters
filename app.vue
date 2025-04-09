@@ -8,7 +8,7 @@
 				<p class="text-overline mt-n3 mb-n2">April 10-13, 2025</p>
 			</v-app-bar-title>
 
-			<v-btn size="x-small" icon href="https://github.com/aliddy23/masters" target="_blank"><v-icon size="22">mdi-github</v-icon></v-btn>
+			<v-btn size="x-small" class="mr-2" icon href="https://github.com/aliddy23/masters" target="_blank"><v-icon size="22">mdi-github</v-icon></v-btn>
 		</v-app-bar>
 
 		<v-main>
