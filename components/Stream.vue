@@ -15,7 +15,7 @@
 						</video>
 					</ClientOnly>
 
-					<div style="position: absolute; top: 20vw; width: 100%" class="text-center" v-if="!activeFeed">
+					<div style="position: absolute; top: 17.5vw; width: 100%" class="text-center" v-if="!activeFeed">
 						<h3 class="text-h3 font-weight-light">The Masters</h3>
 						<p class="mt-4">Select a channel</p>
 					</div>
@@ -116,11 +116,18 @@
 							>
 								<td v-if="player.status == 'C'" class="font-weight-black text-center">MC</td>
 								<td v-else-if="player.status == 'W'" class="font-weight-black text-center">WD</td>
-								<td v-else class="font-weight-black text-center">
-									{{ player?.pos }}
-								</td>
+								<td v-else class="font-weight-black text-center">{{ player?.pos || '-' }}</td>
 								<td style="min-width: 200px">
-									<v-list-item class="ma-0 pa-0" :prepend-avatar="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`">
+									<v-list-item class="ma-0 pa-0">
+										<template v-slot:prepend>
+											<v-avatar>
+												<v-img :src="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`">
+													<template v-slot:error>
+														<v-icon style="margin-top: 8px" size="24">mdi-account</v-icon>
+													</template>
+												</v-img>
+											</v-avatar>
+										</template>
 										<v-list-item-title>
 											<span class="font-weight-bold">{{ player?.last_name }}</span>
 											<span v-if="mdAndUp" class="mr-2">, {{ player?.first_name }}</span>

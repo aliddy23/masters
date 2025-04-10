@@ -2,7 +2,11 @@
 	<v-card class="mb-3">
 		<v-row no-gutters>
 			<v-col cols="9" style="justify-content: center" class="d-flex">
-				<img :src="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`" height="75px" width="75px" class="rounded-be-lg elevation-6" />
+				<v-img :src="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`" height="75px" max-width="75px" class="rounded-be-lg">
+					<template v-slot:error>
+						<v-icon class="text-grey ml-4 mt-3" size="50">mdi-account</v-icon>
+					</template>
+				</v-img>
 				<div style="flex-direction: column; justify-content: center; flex: 1" class="pl-3 d-flex">
 					<h5 class="text-h5 font-weight-bold mb-n2 text-uppercase" style="white-space: nowrap; text-overflow: ellipsis">{{ player.last_name }},</h5>
 					<h6 class="text-h6 font-weight-regular mb-n1">{{ player.first_name }}</h6>
@@ -34,7 +38,7 @@
 			<v-col cols="12" class="text-center px-1 py-1">
 				<div class="d-flex">
 					<div style="flex: 1">
-						<h4 class="text-h4 font-weight-black">{{ movement.prev?.pos }}</h4>
+						<h4 class="text-h4 font-weight-black">{{ movement.prev?.pos || '-' }}</h4>
 						<table class="text-center" style="white-space: nowrap">
 							<thead>
 								<tr>
@@ -77,7 +81,8 @@
 						</table>
 					</div>
 
-					<v-icon size="32" class="mx-2" style="margin-top: 3px" v-if="movement.new.direction == 1">mdi-arrow-top-right</v-icon>
+					<v-icon size="32" class="mx-2" style="margin-top: 3px" v-if="!movement.prev?.pos">mdi-arrow-right</v-icon>
+					<v-icon size="32" class="mx-2" style="margin-top: 3px" v-else-if="movement.new.direction == 1">mdi-arrow-top-right</v-icon>
 					<v-icon size="32" class="mx-2" style="margin-top: 3px" v-else-if="movement.new.direction == -1">mdi-arrow-bottom-right</v-icon>
 					<v-icon size="32" class="mx-2" style="margin-top: 3px" v-else>mdi-arrow-right</v-icon>
 

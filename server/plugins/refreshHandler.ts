@@ -6,7 +6,7 @@ import isBetween from 'dayjs/plugin/isBetween.js'
 dayjs.extend(isBetween)
 
 export default defineNitroPlugin(async () => {
-	if (dayjs().isBetween(dayjs("2023-04-10"), dayjs("2023-04-13")))
+	if (dayjs().isBetween(dayjs("2025-04-10T00:00:00"), dayjs("2025-04-13T23:59:59")))
 		await Promise.all([startFeedScheduler(), startScoreScheduler()]);
 });
 
