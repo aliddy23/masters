@@ -121,7 +121,7 @@
 									<v-list-item class="ma-0 pa-0">
 										<template v-slot:prepend>
 											<v-avatar>
-												<v-img :src="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`">
+												<v-img :src="`https://images.masters.com/players/2025/240x240/${player.id}.jpg`">
 													<template v-slot:error>
 														<v-icon style="margin-top: 8px" size="24">mdi-account</v-icon>
 													</template>

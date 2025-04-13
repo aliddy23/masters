@@ -2,7 +2,7 @@
 	<v-card class="mb-3">
 		<v-row no-gutters>
 			<v-col cols="9" style="justify-content: center" class="d-flex">
-				<v-img :src="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`" height="75px" max-width="75px" class="rounded-be-lg">
+				<v-img :src="`https://images.masters.com/players/2025/240x240/${player.id}.jpg`" height="75px" max-width="75px" class="rounded-be-lg">
 					<template v-slot:error>
 						<v-icon class="text-grey ml-4 mt-3" size="50">mdi-account</v-icon>
 					</template>

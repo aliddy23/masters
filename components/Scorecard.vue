@@ -2,7 +2,7 @@
 	<v-card style="background: #191919" class="rounded-lg">
 		<v-row no-gutters>
 			<v-col cols="2">
-				<v-img :src="`https://images.masters.com/players/2023/240x240/${player.id}.jpg`" class="rounded-be-lg elevation-6">
+				<v-img :src="`https://images.masters.com/players/2025/240x240/${player.id}.jpg`" class="rounded-be-lg elevation-6">
 					<h3 class="text-h3 pa-3 font-weight-black text-white" style="text-shadow: 0 0 6px black; position: absolute; bottom: 0px; right: 0px">
 						{{ player?.pos }}
 					</h3>
