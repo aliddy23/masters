@@ -306,7 +306,7 @@
 			player.on("loadstart", () => {
 				loading.value = true;
 			});
-		}, 100);
+		}, 250);
 
 		await Promise.all([refreshScoreboard(), refreshFeeds()]);
 
