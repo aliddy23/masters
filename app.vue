@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 	useHead({
-		title: "The 88th Masters Tournament",
+		title: "The 89th Masters Tournament",
 		htmlAttrs: {
 			lang: "en",
 		},
